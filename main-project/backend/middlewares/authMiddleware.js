@@ -1,21 +1,19 @@
 const jwt = require("jsonwebtoken");
 
-// Middleware to check for a valid token
 const authMiddleware = (req, res, next) => {
-  const token = req.headers["authorization"];
-
+  const token = req.headers["authorization"]; // Retrieve token from headers
   if (!token) {
-    return res.status(403).send("A token is required for authentication");
+    return res.status(401).json({ message: "No token provided" });
   }
 
-  try {
-    const decoded = jwt.verify(token, "your_secret_key"); // Replace 'your_secret_key' with your actual secret
-    req.user = decoded;
-  } catch (err) {
-    return res.status(401).send("Invalid Token");
-  }
-
-  return next();
+  jwt.verify(token, "jwtSecret", (err, decoded) => {
+    // Use the same secret as when signing
+    if (err) {
+      return res.status(403).json({ message: "Failed to authenticate token" });
+    }
+    req.userId = decoded.id; // Save the user ID for use in other routes
+    next(); // Continue to the next middleware or route handler
+  });
 };
 
 module.exports = authMiddleware;
