@@ -17,7 +17,7 @@ connectDB();
 
 // Routes
 app.use("/api/users", userRoutes);
-app.use("api/admins", adminRoutes);
+app.use("/api/admins", adminRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5000;
