@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { RegisterService } from './register.service';
 import { HttpClientModule } from '@angular/common/http';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterModule,HttpClientModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule, HttpClientModule, MatSnackBarModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
   providers: [RegisterService]
@@ -17,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 export class RegisterComponent implements OnInit {  // Implements OnInit to use ngOnInit
   registerForm!: FormGroup;  // Use non-null assertion operator (!) for safe initialization
 
-  constructor(private fb: FormBuilder, private registerSer: RegisterService) { }
+  constructor(private fb: FormBuilder, private registerSer: RegisterService, private snackBar: MatSnackBar, private router: Router) { }
 
   // ngOnInit lifecycle hook to initialize the form
   ngOnInit(): void {
@@ -47,11 +49,21 @@ export class RegisterComponent implements OnInit {  // Implements OnInit to use 
       console.log('Form Submitted', this.registerForm.value);
       this.registerSer.register(this.registerForm.value).subscribe({
         next: (data) => {
-          console.log(data)
-        }
+          this.snackBar.open(data.message, 'Close', {
+            duration: 3000, // Duration in milliseconds
+
+          });
+          this.router.navigate(['']);
+        }, error: (err) => {
+          this.snackBar.open(err.error.message, 'Close', {
+            duration: 10000, // Duration in milliseconds
+          });
+        },
       })
     } else {
-      console.log('Form Invalid');
+      this.snackBar.open('Form is Invalid.', 'Close', {
+        duration: 3000,
+      });
     }
   }
 }
