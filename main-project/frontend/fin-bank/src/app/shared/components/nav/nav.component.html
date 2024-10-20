@@ -6,9 +6,8 @@
   <span class="spacer"></span>
 
   <!-- Navigation Links -->
-  <button mat-button routerLink="/user-login">Sign in</button>
-  <button mat-button routerLink="/user-register">Register</button>
-
+  <button mat-button [routerLink]="'login'">Login</button>
+  <button mat-button [routerLink]="'register'">Register</button>
 </mat-toolbar>
 
 <!-- Router outlet to load pages dynamically -->

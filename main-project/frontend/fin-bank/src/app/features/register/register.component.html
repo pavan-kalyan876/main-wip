@@ -54,6 +54,29 @@
     </small>
   </div>
 
+  <!-- Confirm Password Input -->
+  <div>
+    <label for="confirmPassword">Confirm Password</label>
+    <input
+      id="confirmPassword"
+      type="password"
+      formControlName="confirmPassword"
+    />
+    <small
+      *ngIf="
+        registerForm.get('confirmPassword')?.invalid &&
+        registerForm.get('confirmPassword')?.touched
+      "
+    >
+      <span *ngIf="registerForm.get('confirmPassword')?.errors?.['required']"
+        >Confirm Password is required</span
+      >
+      <span *ngIf="registerForm.errors?.['passwordMismatch']"
+        >Passwords do not match</span
+      >
+    </small>
+  </div>
+
   <!-- IsAdmin Radio Buttons -->
   <div>
     <label for="isAdmin">Role</label>
@@ -75,14 +98,14 @@
   <div>
     <label>
       <input type="checkbox" formControlName="terms" />
-      Accept Terms
+      Accept Terms and Conditions
     </label>
     <small
       *ngIf="
         registerForm.get('terms')?.invalid && registerForm.get('terms')?.touched
       "
     >
-      You must accept the terms
+      Accept the terms and Conditions
     </small>
   </div>
 
