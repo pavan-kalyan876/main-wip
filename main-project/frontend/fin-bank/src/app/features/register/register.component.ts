@@ -50,19 +50,22 @@ export class RegisterComponent implements OnInit {  // Implements OnInit to use 
       this.registerSer.register(this.registerForm.value).subscribe({
         next: (data) => {
           this.snackBar.open(data.message, 'Close', {
-            duration: 3000, // Duration in milliseconds
-
+            duration: 3000,
+            panelClass: ['success-snackbar'], // Custom success class
           });
           this.router.navigate(['']);
-        }, error: (err) => {
+        },
+        error: (err) => {
           this.snackBar.open(err.error.message, 'Close', {
-            duration: 10000, // Duration in milliseconds
+            duration: 10000,
+            panelClass: ['error-snackbar'], // Custom error class
           });
         },
-      })
+      });
     } else {
       this.snackBar.open('Form is Invalid.', 'Close', {
         duration: 3000,
+        panelClass: ['invalid-snackbar'], // Custom invalid form class
       });
     }
   }
