@@ -6,9 +6,11 @@ mat-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
 }
 
 button {
   color: white;
+}
+.navbar-brand {
+  text-decoration: none;
 }
