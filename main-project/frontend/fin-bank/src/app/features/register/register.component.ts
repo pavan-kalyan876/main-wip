@@ -65,7 +65,7 @@ export class RegisterComponent implements OnInit {  // Implements OnInit to use 
     } else {
       this.snackBar.open('Form is Invalid.', 'Close', {
         duration: 3000,
-        panelClass: ['invalid-snackbar'], // Custom invalid form class
+        panelClass: ['invalid-snackbar'],
       });
     }
   }

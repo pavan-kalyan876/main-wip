@@ -1,0 +1,44 @@
+<mat-card class="login-card">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h2>Login</h2>
+
+    <!-- Email Input -->
+    <mat-form-field class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" required />
+      <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+        Email is required
+      </mat-error>
+      <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+        Please enter a valid email address
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Password Input -->
+    <mat-form-field class="full-width">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" required />
+      <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+        Password is required
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Role Selection (User/Admin) -->
+    <mat-radio-group formControlName="role">
+      <mat-radio-button value="user">User</mat-radio-button>
+      <mat-radio-button value="admin">Admin</mat-radio-button>
+    </mat-radio-group>
+
+    <!-- Submit Button -->
+    <div class="submit-btn">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!loginForm.valid"
+      >
+        Login
+      </button>
+    </div>
+  </form>
+</mat-card>
